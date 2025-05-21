@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import Login from "./pages/login/Login";
 import { Grid, GridItem } from "@chakra-ui/react";
+import Classes from "./pages/Classes";
 
 function Layout({ children }:any) {
   return (
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
+        lg: `"nav nav" "main main"`,
       }}
       templateColumns={{ lg: "200px 1fr" }}
       templateRows={{ base: "auto 1fr", lg: "auto 1fr" }}
@@ -17,9 +18,6 @@ function Layout({ children }:any) {
     >
       <GridItem area="nav" bg="coral" p={4}>
         Nav
-      </GridItem>
-      <GridItem area="aside" bg="gold" p={4} display={{ base: "none", lg: "block" }}>
-        Aside
       </GridItem>
       <GridItem area="main" bg="black" p={4}>
         {children}
@@ -49,11 +47,17 @@ function App() {
           }
         />
         <Route
-          path="/Login"
+          path="/Classes"
           element={
             <Layout>
-              <Login />
+              <Classes />
             </Layout>
+          }
+        />
+        <Route
+          path="/Login"
+          element={
+              <Login />
           }
         />
       </Routes>
