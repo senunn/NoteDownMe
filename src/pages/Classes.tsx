@@ -14,37 +14,52 @@ import PopUp from "@/components/pageComponents/PopUp";
 const Classes = () => {
   const [classData, setClassData] = useState([
     {
+      id: 1,
       Title: "Grade 6",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
     {
+      id: 2,
       Title: "Grade 7",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
     {
+      id: 3,
       Title: "Grade 8",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
     {
+      id: 4,
       Title: "Grade 9",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
     {
+      id: 5,
       Title: "Grade 10",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
-    
   ]);
 
-  
+  const handleAddClass = ({
+    name,
+    description,
+  }: {
+    name: string;
+    description: string;
+  }) => {
+    setClassData((prev) => [
+      ...prev,
+      { id: Date.now(),Title: name, Description: description },
+    ]);
+  };
 
-  const handleAddClass = ({ name, description }: { name: string; description: string }) => {
-  setClassData(prev => [...prev, { Title: name, Description: description }]);
+  const handleDelete = (id: number) => {
+  setClassData(prev => prev.filter(item => item.id !== id));
 };
 
   const myButton = (
@@ -62,11 +77,12 @@ const Classes = () => {
           </Text>
         </HStack>
 
-        <PopUp ButtonComponent={myButton}  addClass={handleAddClass}/>
+        <PopUp ButtonComponent={myButton} addClass={handleAddClass} />
       </Flex>
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} paddingX={5} paddingY={4}>
         {classData.map((item) => (
           <Card.Root
+            key={item.id}
             flexDirection="row"
             overflow="hidden"
             maxW="xl"
@@ -81,7 +97,7 @@ const Classes = () => {
               </Card.Body>
               <Card.Footer>
                 <Button colorPalette="teal">Edit</Button>
-                <Button colorPalette="red" variant="outline">
+                <Button colorPalette="red" variant="outline" onClick={() => handleDelete(item.id)}>
                   Delete
                 </Button>
               </Card.Footer>
