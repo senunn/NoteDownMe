@@ -1,8 +1,18 @@
-import { Box, Button, Card, Flex, Grid, GridItem, HStack, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  HStack,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { RiAddBoxFill } from "react-icons/ri";
+import PopUp from "@/components/pageComponents/PopUp";
 
 const Classes = () => {
-  const classDetails = [
+  const [classData, setClassData] = useState([
     {
       Title: "Grade 6",
       Description:
@@ -24,45 +34,59 @@ const Classes = () => {
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
     {
-      Title: "Grade 9",
+      Title: "Grade 10",
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
-  ];
+    {
+      Title: "Grade 11",
+      Description:
+        "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
+    },
+  ]);
+
+  const myButton = (
+    <Button colorPalette="teal" variant="outline">
+      Add Class <RiAddBoxFill />
+    </Button>
+  );
+
   return (
     <>
-    <Flex justify="space-between" paddingX="5" paddingY="4">
+      <Flex justify="space-between" paddingX="5" paddingY="4">
         <HStack>
-            <Text colorPalette="teal" paddingX="5" textStyle="2xl">
-                Class Set
-            </Text>
+          <Text color="teal.500" paddingX="5" textStyle="4xl">
+            Class Set
+          </Text>
         </HStack>
-        <Button colorPalette="teal" variant="outline">
-        Add Class <RiAddBoxFill />
-      </Button>
-    </Flex>
-      <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} paddingX={5} paddingY={4}>
-          {classDetails.map((item) => (
-            <Card.Root
-              flexDirection="row"
-              overflow="hidden"
-              maxW="xl"
-              marginY="5"
-            >
-              <Box>
-                <Card.Body>
-                  <Card.Title mb="2">{item.Title}</Card.Title>
-                  <Card.Description>{item.Description}</Card.Description>
-                </Card.Body>
-                <Card.Footer>
-                  <Button>Edit</Button>
-                  <Button>Delete</Button>
-                </Card.Footer>
-              </Box>
-            </Card.Root>
-          ))}
-      </SimpleGrid>
 
+        <PopUp ButtonComponent={myButton} />
+      </Flex>
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} paddingX={5} paddingY={4}>
+        {classData.map((item) => (
+          <Card.Root
+            flexDirection="row"
+            overflow="hidden"
+            maxW="xl"
+            marginY="5"
+          >
+            <Box>
+              <Card.Body>
+                <Card.Title mb="2" color="teal.500" textStyle="2xl">
+                  {item.Title}
+                </Card.Title>
+                <Card.Description>{item.Description}</Card.Description>
+              </Card.Body>
+              <Card.Footer>
+                <Button colorPalette="teal">Edit</Button>
+                <Button colorPalette="red" variant="outline">
+                  Delete
+                </Button>
+              </Card.Footer>
+            </Box>
+          </Card.Root>
+        ))}
+      </SimpleGrid>
     </>
   );
 };
