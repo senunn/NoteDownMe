@@ -38,12 +38,14 @@ const Classes = () => {
       Description:
         "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
     },
-    {
-      Title: "Grade 11",
-      Description:
-        "Grade 6 Mathematics SipMadura Saturday 4.00 p.m to 6.00 p.m",
-    },
+    
   ]);
+
+  
+
+  const handleAddClass = ({ name, description }: { name: string; description: string }) => {
+  setClassData(prev => [...prev, { Title: name, Description: description }]);
+};
 
   const myButton = (
     <Button colorPalette="teal" variant="outline">
@@ -60,7 +62,7 @@ const Classes = () => {
           </Text>
         </HStack>
 
-        <PopUp ButtonComponent={myButton} />
+        <PopUp ButtonComponent={myButton}  addClass={handleAddClass}/>
       </Flex>
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} paddingX={5} paddingY={4}>
         {classData.map((item) => (
