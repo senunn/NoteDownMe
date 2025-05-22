@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { RiAddBoxFill } from "react-icons/ri";
 import PopUp from "@/components/pageComponents/PopUp";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
   const [classData, setClassData] = useState([
@@ -45,6 +46,8 @@ const Classes = () => {
     },
   ]);
 
+  const navigate = useNavigate();
+
   const handleAddClass = ({
     name,
     description,
@@ -54,13 +57,13 @@ const Classes = () => {
   }) => {
     setClassData((prev) => [
       ...prev,
-      { id: Date.now(),Title: name, Description: description },
+      { id: Date.now(), Title: name, Description: description },
     ]);
   };
 
   const handleDelete = (id: number) => {
-  setClassData(prev => prev.filter(item => item.id !== id));
-};
+    setClassData((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const myButton = (
     <Button colorPalette="teal" variant="outline">
@@ -83,6 +86,10 @@ const Classes = () => {
         {classData.map((item) => (
           <Card.Root
             key={item.id}
+            onClick={() =>
+              navigate(`/Classes/${item.Title.replace(/\s+/g, "")}`)
+            }
+            _hover={{ cursor: "pointer", boxShadow: "lg" }}
             flexDirection="row"
             overflow="hidden"
             maxW="xl"
@@ -97,7 +104,11 @@ const Classes = () => {
               </Card.Body>
               <Card.Footer>
                 <Button colorPalette="teal">Edit</Button>
-                <Button colorPalette="red" variant="outline" onClick={() => handleDelete(item.id)}>
+                <Button
+                  colorPalette="red"
+                  variant="outline"
+                  onClick={() => handleDelete(item.id)}
+                >
                   Delete
                 </Button>
               </Card.Footer>

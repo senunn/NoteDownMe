@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Login from "./pages/login/Login";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Classes from "./pages/Classes";
+import Details from "./pages/classes/Details";
 
 function Layout({ children }:any) {
   return (
@@ -16,7 +17,7 @@ function Layout({ children }:any) {
       templateRows={{ base: "auto 1fr", lg: "auto 1fr" }}
       minH="100vh"
     >
-      <GridItem area="nav" bg="coral" p={4}>
+      <GridItem area="nav" bg="teal.500" p={4}>
         Nav
       </GridItem>
       <GridItem area="main" bg="black" p={4}>
@@ -51,6 +52,14 @@ function App() {
           element={
             <Layout>
               <Classes />
+            </Layout>
+          }
+        />
+        <Route
+          path="/Classes/:classes"
+          element={
+            <Layout>
+              <Details/>
             </Layout>
           }
         />
