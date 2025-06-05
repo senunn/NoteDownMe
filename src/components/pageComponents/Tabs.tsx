@@ -1,5 +1,4 @@
 import { Tabs } from "@chakra-ui/react";
-import { LuFolder, LuSquareCheck, LuUser } from "react-icons/lu";
 
 type TabsListProp = {
   itemName: string;

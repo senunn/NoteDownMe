@@ -2,11 +2,13 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import Login from "./pages/login/Login";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
 import Classes from "./pages/Classes";
 import Details from "./pages/classes/Details";
+import type { ReactNode } from "react";
+import GlassyBackground from "./components/pageComponents/GlassyBackground";
 
-function Layout({ children }:any) {
+function Layout({ children }: any) {
   return (
     <Grid
       templateAreas={{
@@ -24,6 +26,34 @@ function Layout({ children }:any) {
         {children}
       </GridItem>
     </Grid>
+  );
+}
+
+function LayoutNew({
+  children,
+  px = [4, 8, 12],
+}: {
+  children: ReactNode;
+  px?: number[];
+}) {
+  return (
+    <Box position="relative" bg="#0a0f0d" minH="100vh" overflow="hidden">
+      <GlassyBackground/>
+      <Grid
+        templateAreas={{
+          base: `"main"`,
+          lg: `"main"`,
+        }}
+        templateColumns={{ base: "1fr", lg: "1fr" }}
+        minH="100vh"
+      >
+        <GridItem area="main" p={4}>
+          <Container maxW="6xl" px={px}>
+            {children}
+          </Container>
+        </GridItem>
+      </Grid>
+    </Box>
   );
 }
 
@@ -56,19 +86,22 @@ function App() {
           }
         />
         <Route
-          path="/Classes/:classes"
+          path="/Classes/test"
           element={
-            <Layout>
-              <Details/>
-            </Layout>
+            <LayoutNew>
+              <Classes />
+            </LayoutNew>
           }
         />
         <Route
-          path="/Login"
+          path="/Classes/:classes"
           element={
-              <Login />
+            <Layout>
+              <Details />
+            </Layout>
           }
         />
+        <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>
   );

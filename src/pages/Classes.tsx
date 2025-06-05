@@ -89,11 +89,14 @@ const Classes = () => {
             onClick={() =>
               navigate(`/Classes/${item.Title.replace(/\s+/g, "")}`)
             }
-            _hover={{ cursor: "pointer", boxShadow: "lg" }}
+            _hover={{ cursor: "pointer", boxShadow: "0 4px 20px rgba(80, 50, 150, 0.6)", }}
             flexDirection="row"
             overflow="hidden"
-            maxW="xl"
+            maxW="md"
             marginY="5"
+            marginX="10"
+            boxShadow="2xl"
+
           >
             <Box>
               <Card.Body>
