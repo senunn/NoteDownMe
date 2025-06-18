@@ -42,7 +42,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
             left="0"
             width="100vw"
             height="100vh"
-            bg="blackAlpha.700"
+            bg="blackAlpha.100"
             backdropFilter="blur(4px)"
             zIndex="1000"
             onClick={onClose}
@@ -54,13 +54,13 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
             top="50%"
             left="50%"
             transform="translate(-50%, -50%)"
-            bg="white"
+            bg="blackAlpha.900"
             p="6"
             borderRadius="md"
-            boxShadow="xl"
             zIndex="1001"
-            width="90%"
+            width="100%"
             maxW="500px"
+            boxShadow="0 0 80px rgba(0, 128, 128, 0.7)"
             onClick={(e) => e.stopPropagation()}
           >
             <Stack>
@@ -72,7 +72,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
                 <Text mb="1">Class Name</Text>
                 <Input
                   placeholder="Enter class name..."
-                  color="black"
+                  color="white"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -82,7 +82,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
                 <Text mb="1">Class Description</Text>
                 <Textarea
                   placeholder="Enter class description..."
-                  color="black"
+                  color="white"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
