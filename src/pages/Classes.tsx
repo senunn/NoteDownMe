@@ -13,6 +13,12 @@ import PopUp from "@/components/pageComponents/PopUp";
 import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
+  const [editTarget, setEditTarget] = useState<null | {
+    id: number;
+    Title: string;
+    Description: string;
+  }>(null);
+  const [showEditPopUp, setShowEditPopUp] = useState(false);
   const [classData, setClassData] = useState([
     {
       id: 1,
@@ -61,6 +67,24 @@ const Classes = () => {
     ]);
   };
 
+  const handleEdit = ({
+    name,
+    description,
+  }: {
+    name: string;
+    description: string;
+  }) => {
+    setClassData((prev) =>
+      prev.map((item) =>
+        item.id === editTarget?.id
+          ? { ...item, Title: name, Description: description }
+          : item
+      )
+    );
+    setEditTarget(null);
+    setShowEditPopUp(false);
+  };
+
   const handleDelete = (id: number) => {
     setClassData((prev) => prev.filter((item) => item.id !== id));
   };
@@ -80,7 +104,20 @@ const Classes = () => {
           </Text>
         </HStack>
 
-        <PopUp ButtonComponent={myButton} addClass={handleAddClass} />
+        {!showEditPopUp && <PopUp ButtonComponent={myButton} addClass={handleAddClass} />}
+
+        {showEditPopUp && editTarget && (
+          <PopUp
+            ButtonComponent={<></>} 
+            initialData={{
+              name: editTarget.Title,
+              description: editTarget.Description,
+            }}
+            mode="edit"
+            addClass={handleEdit}
+            forceOpen={true}
+          />
+        )}
       </Flex>
       <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} paddingX={5} paddingY={4}>
         {classData.map((item) => (
@@ -89,14 +126,16 @@ const Classes = () => {
             onClick={() =>
               navigate(`/Classes/${item.Title.replace(/\s+/g, "")}`)
             }
-            _hover={{ cursor: "pointer", boxShadow: "0 4px 20px rgba(80, 50, 150, 0.6)", }}
+            _hover={{
+              cursor: "pointer",
+              boxShadow: "0 4px 20px rgba(80, 50, 150, 0.6)",
+            }}
             flexDirection="row"
             overflow="hidden"
             maxW="md"
             marginY="5"
             marginX="10"
             boxShadow="2xl"
-
           >
             <Box>
               <Card.Body>
@@ -106,11 +145,23 @@ const Classes = () => {
                 <Card.Description>{item.Description}</Card.Description>
               </Card.Body>
               <Card.Footer>
-                <Button colorPalette="teal">Edit</Button>
+                <Button
+                  colorPalette="teal"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditTarget(item);
+                    setShowEditPopUp(true);
+                  }}
+                >
+                  Edit
+                </Button>
                 <Button
                   colorPalette="red"
                   variant="outline"
-                  onClick={() => handleDelete(item.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(item.id);
+                  }}
                 >
                   Delete
                 </Button>

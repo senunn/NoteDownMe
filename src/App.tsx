@@ -7,6 +7,7 @@ import Classes from "./pages/Classes";
 import Details from "./pages/classes/Details";
 import type { ReactNode } from "react";
 import GlassyBackground from "./components/pageComponents/GlassyBackground";
+import ProtectedRoute from "./components/ServiceComponents/ProtectedRoute";
 
 function Layout({ children }: any) {
   return (
@@ -72,25 +73,31 @@ function App() {
         <Route
           path="/About"
           element={
+            <ProtectedRoute>
             <Layout>
               <About />
             </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/Classes"
           element={
+            <ProtectedRoute>
             <Layout>
               <Classes />
             </Layout>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/Classes/test"
           element={
+            <ProtectedRoute>
             <LayoutNew>
               <Classes />
             </LayoutNew>
+            </ProtectedRoute>
           }
         />
         <Route

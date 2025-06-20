@@ -2,6 +2,7 @@ import { Button, Input, VStack } from "@chakra-ui/react";
 import LoginLayout from "@/components/pageComponents/LoginLayout";
 import { login } from "@/services/userServices";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -9,6 +10,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     setLoading(true);
@@ -16,10 +18,14 @@ const Login = () => {
     try{
       const response = await login({email, password});
       console.log("login success: ", response.data)
+      const token = response.data;
+      localStorage.setItem('authToken', token);
+      navigate("/classes/test");
     }catch(err: any){
       setError(err.response?.data?.message || "login failed")
     } finally {
       setLoading(false);
+      
     }
   }
   return (

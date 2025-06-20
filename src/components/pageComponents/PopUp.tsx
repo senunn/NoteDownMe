@@ -12,14 +12,17 @@ import { useState } from "react";
 
 type PopUpProps = {
   ButtonComponent: React.ReactElement;
+  mode?: "edit" | "add";
+  initialData ?: {name: string; description: string}; 
   addClass: (data: { name: string; description: string }) => void;
+  forceOpen?: boolean;
 };
 
-const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
+const PopUp = ({ ButtonComponent, addClass, mode, initialData, forceOpen }: PopUpProps) => {
   const { open, onOpen, onClose } = useDisclosure();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState(initialData?.name || "");
+  const [description, setDescription] = useState(initialData?.description || "");
 
   const handleSubmit = () => {
     if (name.trim() === "" || description.trim() === "") return;
@@ -34,7 +37,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
     <>
       <span onClick={onOpen}>{ButtonComponent}</span>
 
-      {open && (
+      {(open || forceOpen) && (
         <Portal>
           <Box
             position="fixed"
@@ -65,7 +68,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
           >
             <Stack>
               <Text fontSize="xl" fontWeight="bold">
-                Add Class
+                {mode === "edit" ? "Edit Class" : "Add Class"}
               </Text>
 
               <Box>
@@ -89,7 +92,7 @@ const PopUp = ({ ButtonComponent, addClass }: PopUpProps) => {
               </Box>
 
               <Button colorScheme="blue" onClick={handleSubmit}>
-                Submit
+                {mode === "edit" ? "Save Changes" : "Submit"}
               </Button>
             </Stack>
           </Box>
